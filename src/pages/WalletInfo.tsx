@@ -4,6 +4,8 @@ import Card from "../components/Card";
 import { Button } from "../styles/element.styled";
 
 import { HiOutlineArrowDown } from "react-icons/hi";
+import { RiArrowDownSLine } from "react-icons/ri";
+
 import fusd from "../assets/fUSD.png";
 import fuse from "../assets/sFuse.png";
 import voltage from "../assets/volt.png";
@@ -33,7 +35,7 @@ const WalletInfo: React.FC = () => {
         </BalanceContainer>
       </Card>
       <Card>
-        <>
+        <MainContainer>
           <Container>
             <InnerContainer>
               <h3>Your Coins</h3>
@@ -65,119 +67,14 @@ const WalletInfo: React.FC = () => {
                     <p>$35</p>
                   </Value>
                 </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
               </CoinContainer>
             </InnerContainer>
           </Container>
-          <ShowMore>Show More</ShowMore>
-        </>
+          <ShowMore>
+            <p>Show More</p>
+            <RiArrowDownSLine />
+          </ShowMore>
+        </MainContainer>
       </Card>
       {showModal && <Modal setShowModal={setShowModal} />}
     </WalletContainer>
@@ -207,6 +104,7 @@ const BalanceContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 4rem;
 
   button {
     padding: 1.6rem 4.7rem;
@@ -222,6 +120,7 @@ const BalanceContainer = styled.div`
   @media screen and (max-width: 447px) {
     flex-direction: column;
     gap: 2.4rem;
+    padding: 2.4rem;
 
     button {
       width: 100%;
@@ -253,6 +152,12 @@ const Balance = styled.div`
   @media screen and (max-width: 447px) {
     align-self: flex-start;
   }
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
 `;
 
 const Container = styled.div`
@@ -318,10 +223,14 @@ const Value = styled.div`
 `;
 
 const ShowMore = styled.div`
-  border-top: 1px solid #f2f2f2;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 600;
+  gap: 2px;
+  cursor: pointer;
+  border-top: 1px solid rgb(var(--primary-color));
+  padding: 2rem;
 `;

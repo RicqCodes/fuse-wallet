@@ -34,7 +34,7 @@ const MainContainer = styled.div`
     flex-direction: column;
 
     > div {
-      height: calc(100vh - 19.6rem);
+      height: calc(100vh - 14rem);
     }
   }
 
