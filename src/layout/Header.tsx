@@ -1,5 +1,5 @@
 import React from "react";
-import { styled, css } from "styled-components";
+import { styled } from "styled-components";
 import { FaTwitter } from "react-icons/fa";
 
 import Logo from "../components/Logo";
