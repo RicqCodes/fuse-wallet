@@ -120,7 +120,7 @@ const BalanceContainer = styled.div`
   @media screen and (max-width: 447px) {
     flex-direction: column;
     gap: 2.4rem;
-    padding: 2.4rem;
+    padding-bottom: 2rem;
 
     button {
       width: 100%;
@@ -194,7 +194,7 @@ const Coin = styled.div`
   align-items: center;
 
   &:nth-child(odd) {
-    background-color: var(--primary-color);
+    background-color: rgb(var(--primary-color));
     border-radius: var(--border-radius);
   }
 `;
