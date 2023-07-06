@@ -19,7 +19,7 @@ const Layout: React.FC = () => {
 export default Layout;
 
 const MainContainer = styled.div`
-  padding: 3.45rem 12.4rem;
+  padding: 0 12.4rem 3.45rem 12.4rem;
   width: 100%;
   max-width: var(--max-width);
   display: flex;

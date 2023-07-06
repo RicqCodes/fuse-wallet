@@ -97,7 +97,7 @@ const ModalOuterContainer = styled.div`
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
   overflow: hidden;
-
+  z-index: 999;
   transition: all 0.5s ease-in-out;
   /* animation: ${slideUpDown} 0.5s linear; */
 `;

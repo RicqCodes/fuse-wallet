@@ -42,6 +42,12 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  top: 0;
+  position: sticky;
+  background-color: rgba(var(--primary-color), 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 99;
+  padding: 24px 0;
 `;
 
 const Nav = styled.nav`

@@ -13,6 +13,8 @@ export default Card;
 
 const CardContainer = styled.div`
   max-width: 82.6rem;
+  max-height: 84rem;
+  overflow: auto;
   width: 100%;
   background-color: var(--secondary-color);
   padding: 4rem 3.4rem;

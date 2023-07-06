@@ -35,7 +35,7 @@ html {
   --font-mona: 'Work Sans', sans-serif;
   --border-radius: 8px;
   --accent-color: #000;
-  --primary-color: #F2F2F2;
+  --primary-color: 242,242,242;
   --secondary-color: #fff;
   --warning: #9a6700;
   --breakpoint-xs: 0;
@@ -49,7 +49,7 @@ body {
   margin: 0;
   min-height: 100vh;
   color: rgb(var(--accent-color));
-  background: var(--primary-color);
+  background: rgb(var(--primary-color));
 }
 
 ul, ol {

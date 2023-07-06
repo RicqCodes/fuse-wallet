@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import Card from "../components/Card";
 import { Button } from "../styles/element.styled";
 
+import { HiOutlineArrowDown } from "react-icons/hi";
 import fusd from "../assets/fUSD.png";
 import fuse from "../assets/sFuse.png";
 import voltage from "../assets/volt.png";
@@ -11,7 +12,6 @@ import Modal from "../components/Modal";
 const WalletInfo: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
-  console.log(showModal);
   return (
     <WalletContainer>
       <h2>Wallet</h2>
@@ -25,7 +25,10 @@ const WalletInfo: React.FC = () => {
             </p>
           </Balance>
           <Button onClick={() => setShowModal(true)} $fontsize="1.6">
-            Receive
+            <div>
+              <HiOutlineArrowDown />
+              <p>Receive</p>
+            </div>
           </Button>
         </BalanceContainer>
       </Card>
@@ -48,6 +51,114 @@ const WalletInfo: React.FC = () => {
                   <Name>
                     <img src={fuse} alt="Fuse Dollar" />
                     <p>Fuse</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
+                  </Name>
+                  <Value>
+                    <p>$35</p>
+                  </Value>
+                </Coin>
+                <Coin>
+                  <Name>
+                    <img src={voltage} alt="Fuse Dollar" />
+                    <p>Voltage</p>
                   </Name>
                   <Value>
                     <p>$35</p>
@@ -99,6 +210,13 @@ const BalanceContainer = styled.div`
 
   button {
     padding: 1.6rem 4.7rem;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+    }
   }
 
   @media screen and (max-width: 447px) {
