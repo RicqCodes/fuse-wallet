@@ -42,10 +42,14 @@ const Modal: React.FC<Props> = ({ setShowModal }) => {
     };
   }, []);
 
+  const stopPropagation = (e: React.MouseEvent<HTMLDivElement>): void => {
+    e.stopPropagation();
+  };
+
   return (
     <ModalOuterContainer onClick={() => setShowModal(false)}>
       <InnerContent>
-        <Content onClick={(e) => e.stopPropagation()}>
+        <Content onClick={stopPropagation}>
           <Heading>
             <h2>Your Public Address</h2>
             <div
