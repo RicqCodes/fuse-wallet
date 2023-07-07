@@ -1,12 +1,5 @@
-import React, {
-  ReactComponentElement,
-  ReactElement,
-  useEffect,
-  useState,
-} from "react";
+import React, { ReactElement } from "react";
 import { styled } from "styled-components";
-
-import { shortAddress } from "../helper/utils";
 
 import { popup, slideUpDown } from "../styles/animation.styled";
 import { device } from "../styles/utils.styled";
