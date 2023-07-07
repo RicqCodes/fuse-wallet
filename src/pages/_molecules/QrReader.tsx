@@ -108,4 +108,9 @@ const ScannerContainer = styled.div`
   border-radius: 10.4rem;
   overflow: hidden;
   height: 34rem;
+
+  ${() => device.down("sm")} {
+    height: 22rem;
+    border-radius: 4.8rem;
+  }
 `;
