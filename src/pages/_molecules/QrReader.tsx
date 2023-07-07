@@ -44,6 +44,7 @@ const QrReader: React.FC<Props> = ({ setShowModal, setWalletAddress }) => {
         <ScannerContainer>
           <QrScanner
             delay={300}
+            facingMode="rear"
             onError={handleError}
             onScan={handleScan}
             style={{ width: "100%" }}
