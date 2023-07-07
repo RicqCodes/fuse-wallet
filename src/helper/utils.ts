@@ -17,7 +17,7 @@ export const parseBalance = (number: string | undefined): number => {
 export const calculatePercentageOfSupply = (
   totalSupply: number | string,
   userBalance: number | string
-): number => {
+): number | string => {
   if (typeof totalSupply === "string" && typeof userBalance === "string") {
     return ((parseInt(userBalance) / parseInt(totalSupply)) * 100).toFixed(3);
   } else {

@@ -14,9 +14,7 @@ const CoinDetails: React.FC = () => {
   const [searchParams] = useSearchParams();
   const wallet = searchParams.get("wallet");
   const { data: tokenList } = useGetAllTokenByAddressQuery(wallet || "");
-  const { data: tokenDetails, isLoading } = useGetTokenSupplyQuery(
-    contractAddress || ""
-  );
+  const { data: tokenDetails } = useGetTokenSupplyQuery(contractAddress || "");
 
   const tokens = tokenList?.result;
 
