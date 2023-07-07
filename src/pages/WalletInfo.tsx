@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Card from "../components/Card";
 import { Button } from "../styles/element.styled";
@@ -10,9 +10,35 @@ import fusd from "../assets/fUSD.png";
 import fuse from "../assets/sFuse.png";
 import voltage from "../assets/volt.png";
 import Modal from "../components/Modal";
+import { useLazyGetAllTokenByAddressQuery } from "../services/fuseApi";
+import { useAppSelector } from "../services/hooks";
+import { parseBalance } from "../helper/utils";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addAddress } from "../services/slice";
+import { toast } from "react-hot-toast";
 
 const WalletInfo: React.FC = () => {
+  const { address } = useParams<{ address?: string }>();
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const walletAddress = useAppSelector(({ app }) => app.address);
+  const [getAllTokenByAddress, { data: tokenList }] =
+    useLazyGetAllTokenByAddressQuery();
+
+  useEffect(() => {
+    const addToStateOnRefresh = async () => {
+      if (walletAddress !== "") return;
+      try {
+        await getAllTokenByAddress(address || "").unwrap();
+        dispatch(addAddress(address || ""));
+      } catch (err) {
+        toast.error("An error occured!");
+      }
+    };
+
+    addToStateOnRefresh();
+  }, []);
 
   return (
     <WalletContainer>
@@ -40,33 +66,57 @@ const WalletInfo: React.FC = () => {
             <InnerContainer>
               <h3>Your Coins</h3>
               <CoinContainer>
-                <Coin>
-                  <Name>
-                    <img src={fusd} alt="Fuse Dollar" />
-                    <p>Fuse Dollar</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={fuse} alt="Fuse Dollar" />
-                    <p>Fuse</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
-                <Coin>
-                  <Name>
-                    <img src={voltage} alt="Fuse Dollar" />
-                    <p>Voltage</p>
-                  </Name>
-                  <Value>
-                    <p>$35</p>
-                  </Value>
-                </Coin>
+                <Link to={`/token/ca`}>
+                  <Coin>
+                    <Name>
+                      <img src={fusd} alt="Fuse Dollar" />
+                      <p>Fuse Dollar</p>
+                    </Name>
+                    <Value>
+                      <p>$0</p>
+                    </Value>
+                  </Coin>
+                </Link>
+                <Link to="/token/ca">
+                  <Coin>
+                    <Name>
+                      <img src={fuse} alt="Fuse Dollar" />
+                      <p>Fuse</p>
+                    </Name>
+                    <Value>
+                      <p>$0</p>
+                    </Value>
+                  </Coin>
+                </Link>
+                <Link to="/token/ca">
+                  <Coin>
+                    <Name>
+                      <img src={voltage} alt="Fuse Dollar" />
+                      <p>Voltage</p>
+                    </Name>
+                    <Value>
+                      <p>$0</p>
+                    </Value>
+                  </Coin>
+                </Link>
+
+                {tokenList &&
+                  tokenList?.result.map((token) => (
+                    <Link
+                      key={token.contractAddress}
+                      to={`/token/${token.contractAddress}?wallet=${walletAddress}`}
+                    >
+                      <Coin>
+                        <Name>
+                          <img src={voltage} alt="Fuse Dollar" />
+                          <p>{token.name}</p>
+                        </Name>
+                        <Value>
+                          <p>{parseBalance(token.balance) || 0}</p>
+                        </Value>
+                      </Coin>
+                    </Link>
+                  ))}
               </CoinContainer>
             </InnerContainer>
           </Container>
@@ -184,6 +234,11 @@ const CoinContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  a:nth-child(odd) {
+    background-color: rgb(var(--primary-color));
+    border-radius: var(--border-radius);
+  }
 `;
 
 const Coin = styled.div`
@@ -192,11 +247,6 @@ const Coin = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  &:nth-child(odd) {
-    background-color: rgb(var(--primary-color));
-    border-radius: var(--border-radius);
-  }
 `;
 
 const Name = styled.div`

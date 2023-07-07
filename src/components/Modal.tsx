@@ -4,19 +4,20 @@ import { LuAlertTriangle } from "react-icons/lu";
 import { GrClose } from "react-icons/gr";
 import copy from "../assets/copy.svg";
 import { Button } from "../styles/element.styled";
-import { shortAddress } from "../helper/shortenAddress";
+import { shortAddress } from "../helper/utils";
 
 import { popup, slideUpDown } from "../styles/animation.styled";
 import { device } from "../styles/utils.styled";
+import { useAppSelector } from "../services/hooks";
+import { toast } from "react-hot-toast";
 
 interface Props {
   setShowModal: (value: boolean) => void;
 }
 
 const Modal: React.FC<Props> = ({ setShowModal }) => {
-  const [wallet, setWallet] = useState(
-    "0xe3A133EC46aB6625342eA4465AF38fC0A7769d31"
-  );
+  const walletAddress = useAppSelector(({ app }) => app.address);
+  const [wallet, setWallet] = useState(walletAddress);
 
   const handleResize = () => {
     const screenWidth = window.innerWidth;
@@ -26,7 +27,7 @@ const Modal: React.FC<Props> = ({ setShowModal }) => {
       const shortenedWallet = shortAddress(wallet);
       setWallet(shortenedWallet);
     } else {
-      setWallet("0xe3A133EC46aB6625342eA4465AF38fC0A7769d31");
+      setWallet(walletAddress);
     }
   };
 
@@ -46,6 +47,15 @@ const Modal: React.FC<Props> = ({ setShowModal }) => {
     e.stopPropagation();
   };
 
+  const copyToClipboard = (wallet: string): void => {
+    try {
+      navigator.clipboard.writeText(wallet);
+      toast.success("Wallet address copied to clipboard");
+    } catch (err) {
+      toast.error("Could not copy to clipboard");
+    }
+  };
+
   return (
     <ModalOuterContainer onClick={() => setShowModal(false)}>
       <InnerContent>
@@ -62,7 +72,11 @@ const Modal: React.FC<Props> = ({ setShowModal }) => {
           <Body>
             <Contract>
               <p>{wallet}</p>
-              <img src={copy} alt="" />
+              <img
+                src={copy}
+                onClick={() => copyToClipboard(walletAddress)}
+                alt=""
+              />
             </Contract>
             <Note>
               <div>
@@ -99,7 +113,6 @@ const ModalOuterContainer = styled.div`
   overflow: hidden;
   z-index: 999;
   transition: all 0.5s ease-in-out;
-  /* animation: ${slideUpDown} 0.5s linear; */
 `;
 
 const InnerContent = styled.div`

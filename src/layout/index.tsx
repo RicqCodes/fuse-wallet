@@ -8,9 +8,7 @@ const Layout: React.FC = () => {
     <MainContainer>
       <Header />
       <main>
-        <div>
-          <Outlet />
-        </div>
+        <Outlet />
       </main>
     </MainContainer>
   );
@@ -33,9 +31,7 @@ const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
 
-    > div {
-      height: calc(100vh - 14rem);
-    }
+    height: calc(100vh - 14rem);
   }
 
   @media screen and (max-width: 970px) {

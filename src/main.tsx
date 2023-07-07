@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./services/store";
 
 import Layout from "./layout";
 
-// import LandingPageLayout from "./components/layout/index";
-// import LandingPage from "./components/pages/LandingPage";
 import { Global } from "./styles/global.styled";
 import WalletInput from "./pages/WalletInput";
 import WalletInfo from "./pages/WalletInfo";
 import CoinDetails from "./pages/CoinDetails";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
         element: <WalletInfo />,
       },
       {
-        path: "/coin/:address",
+        path: "/token/:contractAddress",
         element: <CoinDetails />,
       },
     ],
@@ -35,7 +36,24 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Global />
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <Global />
+      <RouterProvider router={router} />
+      <Toaster
+        containerStyle={{
+          top: 80,
+        }}
+        toastOptions={{
+          className: "",
+          style: {
+            background: "#000",
+            border: "1px solid #fff",
+            padding: "16px",
+            fontSize: "16px",
+            color: "#fff",
+          },
+        }}
+      />
+    </Provider>
   </React.StrictMode>
 );

@@ -62,6 +62,11 @@ p {
     font-size: 1.8rem;
 }
 
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
 span {
         font-size: 1.4rem;
 }
