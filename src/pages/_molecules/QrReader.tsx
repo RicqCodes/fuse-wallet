@@ -106,6 +106,9 @@ const ScannerContainer = styled.div`
   width: 100%;
   border: 4px dashed var(--accent-color);
   border-radius: 10.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   height: 34rem;
 

@@ -68,6 +68,6 @@ const Content = styled.div`
 
     animation: ${slideUpDown} 0.5s linear;
 
-    padding-bottom: 10rem;
+    padding-bottom: 8rem;
   }
 `;
