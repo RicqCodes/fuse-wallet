@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { isAddress } from "ethers";
 import { styled } from "styled-components";
+import { AiOutlineScan } from "react-icons/ai";
 
 import { Button, Loader } from "../styles/element.styled";
 import Card from "../components/Card";
@@ -10,10 +11,13 @@ import { addAddress } from "../services/slice";
 import { toast } from "react-hot-toast";
 import { useLazyGetAllTokenByAddressQuery } from "../services/fuseApi";
 import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal";
+import QrReader from "./_molecules/QrReader";
 
 const WalletInput: React.FC = () => {
   const dispatch = useDispatch();
   const [walletAddress, setWalletAddress] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const [getAllTokenByAddress, { isLoading: isFetchingToken }] =
@@ -53,11 +57,17 @@ const WalletInput: React.FC = () => {
       <Card>
         <InnerContainer>
           <p>Add Wallet Address</p>
-          <input
-            type="text"
-            placeholder="Enter or copy wallet address"
-            onChange={(e) => setWalletAddress(e.target.value)}
-          />
+          <InputWrapper>
+            <input
+              type="text"
+              placeholder="Enter or copy wallet address"
+              onChange={(e) => setWalletAddress(e.target.value)}
+              value={walletAddress}
+            />
+            <div onClick={() => setShowModal(true)}>
+              <AiOutlineScan />
+            </div>
+          </InputWrapper>
           <Button
             type="button"
             $fontsize="1.6"
@@ -76,6 +86,14 @@ const WalletInput: React.FC = () => {
           </Button>
         </InnerContainer>
       </Card>
+      {showModal && (
+        <Modal setShowModal={setShowModal}>
+          <QrReader
+            setShowModal={setShowModal}
+            setWalletAddress={setWalletAddress}
+          />
+        </Modal>
+      )}
     </Container>
   );
 };
@@ -88,6 +106,40 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const InputWrapper = styled.div`
+  width: 100%;
+  background-color: rgb(var(--primary-color));
+  height: 4.8rem;
+  border-radius: var(--border-radius);
+  padding: 0 1.8rem;
+  display: flex;
+  align-items: center;
+
+  & input[type="text"] {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    outline: none;
+    font-size: 1.8rem;
+
+    &::placeholder {
+      font-size: 1.6rem;
+      color: #bfbfbf;
+    }
+  }
+
+  > div {
+    width: 2.4rem;
+    height: 2.4rem;
+    cursor: pointer;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
 
 const InnerContainer = styled.div`
@@ -103,21 +155,6 @@ const InnerContainer = styled.div`
     font-size: 2.8rem;
     font-weight: 700;
     align-self: flex-start;
-  }
-
-  & input[type="text"] {
-    width: 100%;
-    outline: none;
-    background-color: rgb(var(--primary-color));
-    height: 4.8rem;
-    border-radius: var(--border-radius);
-    padding-left: 1.8rem;
-    font-size: 1.8rem;
-
-    &::placeholder {
-      font-size: 1.6rem;
-      color: #bfbfbf;
-    }
   }
 
   button {

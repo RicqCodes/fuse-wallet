@@ -8,7 +8,6 @@ import { RiArrowDownSLine } from "react-icons/ri";
 
 import fusd from "../assets/fUSD.png";
 import fuse from "../assets/sFuse.png";
-import voltage from "../assets/volt.png";
 import Modal from "../components/Modal";
 import {
   useLazyGetAllTokenByAddressQuery,
@@ -20,6 +19,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addAddress } from "../services/slice";
 import { toast } from "react-hot-toast";
+import WalletDisplay from "./_molecules/WalletDisplay";
 
 const WalletInfo: React.FC = () => {
   const { address } = useParams<{ address: string }>();
@@ -35,7 +35,8 @@ const WalletInfo: React.FC = () => {
       try {
         await getAllTokenByAddress(address || "").unwrap();
         if (walletAddress === "") dispatch(addAddress(address || ""));
-      } catch (err: unknown) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
         toast.error(err.error);
       }
     };
@@ -119,7 +120,11 @@ const WalletInfo: React.FC = () => {
           </ShowMore>
         </MainContainer>
       </Card>
-      {showModal && <Modal setShowModal={setShowModal} />}
+      {showModal && (
+        <Modal setShowModal={setShowModal}>
+          <WalletDisplay setShowModal={setShowModal} />
+        </Modal>
+      )}
     </WalletContainer>
   );
 };
