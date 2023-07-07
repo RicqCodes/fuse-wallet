@@ -67,5 +67,7 @@ const Content = styled.div`
     border-top-right-radius: 12px;
 
     animation: ${slideUpDown} 0.5s linear;
+
+    padding-bottom: 10rem;
   }
 `;
