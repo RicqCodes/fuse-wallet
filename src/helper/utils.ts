@@ -10,7 +10,6 @@ export const shortAddress = (address: string): string => {
 
 export const parseBalance = (number: string | undefined): number => {
   if (number === undefined || "") return 0;
-  console.log(number);
   return parseInt(ethers.formatEther(number));
 };
 

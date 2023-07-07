@@ -1,6 +1,6 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { TokenList, TokenDetails } from "./types";
+import type { TokenList, TokenDetails, NativeBalance } from "./types";
 
 // Define a service using a base URL and expected endpoints
 export const fuseApi = createApi({
@@ -14,6 +14,9 @@ export const fuseApi = createApi({
       query: (contractAddress) =>
         `?module=stats&action=tokensupply&contractaddress=${contractAddress}`,
     }),
+    getNativeTokenBalance: builder.query<NativeBalance, string>({
+      query: (address) => `?module=account&action=balance&address=${address}`,
+    }),
   }),
 });
 
@@ -23,4 +26,5 @@ export const {
   useLazyGetAllTokenByAddressQuery,
   useGetAllTokenByAddressQuery,
   useGetTokenSupplyQuery,
+  useGetNativeTokenBalanceQuery,
 } = fuseApi;

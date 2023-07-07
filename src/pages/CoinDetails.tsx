@@ -109,8 +109,7 @@ const InnerDetail = styled.div`
 
 const Detail = styled.div`
   width: 100%;
-  height: 6.4rem;
-  padding: 0 2rem;
+  padding: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -133,6 +132,6 @@ const Detail = styled.div`
   @media screen and (max-width: 447px) {
     flex-direction: column;
     align-items: flex-start;
-    padding: 2.2rem;
+    padding: 1rem;
   }
 `;

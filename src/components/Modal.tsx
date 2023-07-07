@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import QRCode from "react-qr-code";
 import { styled } from "styled-components";
 import { LuAlertTriangle } from "react-icons/lu";
 import { GrClose } from "react-icons/gr";
+
 import copy from "../assets/copy.svg";
 import { Button } from "../styles/element.styled";
 import { shortAddress } from "../helper/utils";
@@ -23,7 +25,6 @@ const Modal: React.FC<Props> = ({ setShowModal }) => {
     const screenWidth = window.innerWidth;
     // Perform actions based on screen size
     if (screenWidth <= 538) {
-      console.log(screenWidth);
       const shortenedWallet = shortAddress(wallet);
       setWallet(shortenedWallet);
     } else {
@@ -55,7 +56,6 @@ const Modal: React.FC<Props> = ({ setShowModal }) => {
       toast.error("Could not copy to clipboard");
     }
   };
-
   return (
     <ModalOuterContainer onClick={() => setShowModal(false)}>
       <InnerContent>
@@ -71,12 +71,22 @@ const Modal: React.FC<Props> = ({ setShowModal }) => {
           </Heading>
           <Body>
             <Contract>
-              <p>{wallet}</p>
-              <img
-                src={copy}
-                onClick={() => copyToClipboard(walletAddress)}
-                alt=""
-              />
+              <QrCodeContainer onClick={() => copyToClipboard(walletAddress)}>
+                <QRCode
+                  size={180}
+                  bgColor="white"
+                  fgColor="black"
+                  value={walletAddress}
+                />
+              </QrCodeContainer>
+              <div>
+                <p>{wallet}</p>
+                <img
+                  src={copy}
+                  onClick={() => copyToClipboard(walletAddress)}
+                  alt=""
+                />
+              </div>
             </Contract>
             <Note>
               <div>
@@ -152,7 +162,6 @@ const Heading = styled.div`
   border-bottom: 1px solid #f2f2f2;
   width: 100%;
   padding: 2.4rem;
-  /* border: 4px solid #000; */
   display: flex;
   justify-content: space-between;
 
@@ -181,7 +190,6 @@ const Body = styled.div`
   gap: 1.2rem;
   padding: 3.2rem 2.4rem;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
 
   ${() => device.down("sm")} {
@@ -189,18 +197,36 @@ const Body = styled.div`
   }
 `;
 
+const QrCodeContainer = styled.div`
+  max-width: 24rem;
+  width: 100%;
+  background-color: rgb(var(--primary-color));
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+`;
+
 const Contract = styled.div`
   display: flex;
-  justify-content: space-between;
-  background-color: var(--primary-color);
-  height: 4.8rem;
+  flex-direction: column;
+  width: 100%;
   align-items: center;
-  padding: 2.4rem;
-  border-radius: var(--border-radius);
 
-  svg {
-    height: 1.6rem;
-    width: 1.6rem;
+  > div:last-child {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 2.4rem;
+
+    svg {
+      height: 1.6rem;
+      width: 1.6rem;
+    }
   }
 `;
 

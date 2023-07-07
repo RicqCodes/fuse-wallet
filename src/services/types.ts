@@ -20,6 +20,10 @@ export interface TokenDetails extends Response {
   result: string;
 }
 
+export interface NativeBalance extends Response {
+  result: string;
+}
+
 export interface AppState {
   address: string;
 }
