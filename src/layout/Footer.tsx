@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { ToggleSwitch } from "../components/ToggleSwitch";
 import { useDarkMode } from "../hooks/useTheme";
-
-interface Theme {
-  theme: string;
-  themeToggler: () => void;
-}
 
 const Footer: React.FC = () => {
   const { theme, themeToggler } = useDarkMode();

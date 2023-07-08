@@ -33,7 +33,7 @@ const WalletInfo: React.FC = () => {
   const [showModal, setShowModal] = useState(false); // State to handle the visibility of the modal
   const [displayedTokens, setDisplayedTokens] = useState(10); // Number of tokens to display initially
   const walletAddress = useAppSelector((app) => app.app.address);
-  const [getAllTokenByAddress, { data: tokenList, isLoading }] =
+  const [getAllTokenByAddress, { data: tokenList }] =
     useLazyGetAllTokenByAddressQuery();
   // { pollingInterval: 5000 }
   const [getPriceForAllTokenQuery, { data: tokenPrice }] =
