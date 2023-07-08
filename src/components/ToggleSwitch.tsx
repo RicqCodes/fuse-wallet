@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 interface Props {
   toggled: boolean;
-  themeToggler: () => void;
+  themeToggler?: () => void;
 }
 
 interface ToggleBox {
@@ -19,7 +19,7 @@ export const ToggleSwitch: React.FC<Props> = ({ toggled, themeToggler }) => {
 
   const handleToggle = () => {
     setToggle((prev) => !prev);
-    themeToggler();
+    themeToggler && themeToggler();
   };
 
   useEffect(() => {
@@ -36,8 +36,8 @@ export const ToggleSwitch: React.FC<Props> = ({ toggled, themeToggler }) => {
 };
 
 const ToggleContainer = styled.div`
-  width: 32px;
-  height: 16px;
+  width: 46px;
+  height: 22px;
 `;
 
 const ToggleBox = styled.div<ToggleBox>`
@@ -47,7 +47,7 @@ const ToggleBox = styled.div<ToggleBox>`
   padding: 2px;
   margin: 0;
   background: ${({ $state }) =>
-    $state ? "var(--secondary-color)" : "var(--primary-color)"};
+    $state ? "var(--accent-color)" : "var(--accent-color)"};
 `;
 
 const Switcher = styled.div<Switcher>`
@@ -65,10 +65,11 @@ const Switcher = styled.div<Switcher>`
     }
   }}
 
-  background: ${({ $state }) => ($state === false ? "grey" : "white")};
+  background: ${({ $state }) => ($state === false ? "white" : "black")};
+  transition: all 0.3s ease-in;
 
   border-radius: 50%;
-  width: 12px;
-  height: 12px;
+  width: 18px;
+  height: 18px;
   margin-right: 0;
 `;
