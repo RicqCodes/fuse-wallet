@@ -26,15 +26,12 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* overflow: hidden; */
 
   & main {
     width: 100%;
     padding: 2.4rem;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 2.4rem);
-    overflow: hidden;
   }
 
   @media screen and (max-width: 970px) {

@@ -9,6 +9,7 @@ import {
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { TokenInfo } from "../services/types";
 import { calculatePercentageOfSupply, parseBalance } from "../helper/utils";
+import { device } from "../styles/utils.styled";
 
 const CoinDetails: React.FC = () => {
   const { contractAddress } = useParams<{ contractAddress?: string }>();
@@ -96,6 +97,10 @@ const DetailsContainer = styled.div`
 
   svg {
     cursor: pointer;
+  }
+
+  ${() => device.down("sm")} {
+    margin: 2.4rem 0;
   }
 `;
 

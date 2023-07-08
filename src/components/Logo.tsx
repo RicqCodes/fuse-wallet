@@ -1,12 +1,18 @@
 import React from "react";
-import logo from ".././assets/logo.svg";
 import { styled } from "styled-components";
+import { useAppSelector } from "../services/hooks";
 
 const Logo: React.FC = () => {
+  const theme = useAppSelector((app) => app.app.themeMode);
+
   return (
     <>
       <LogoContainer>
-        <img src={logo} alt="Fuse Logo" />
+        <img
+          className={theme === "dark" ? "invert" : ""}
+          src={"https://asset.brandfetch.io/idF0ahzOW4/id5Z-xCDgM.svg"}
+          alt="Fuse Logo"
+        />
       </LogoContainer>
     </>
   );
@@ -21,5 +27,9 @@ const LogoContainer = styled.div`
   img {
     width: 100%;
     height: 100%;
+  }
+
+  .invert {
+    filter: invert(100%);
   }
 `;
