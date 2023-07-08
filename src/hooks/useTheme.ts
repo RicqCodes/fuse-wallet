@@ -10,11 +10,7 @@ export const useDarkMode = () => {
   const setMode = (mode: string) => {
     window.localStorage.setItem("theme", mode);
     setTheme(mode);
-    dispatch(themeMode(theme));
-  };
-
-  const themeToggler = () => {
-    theme === "light" ? setMode("dark") : setMode("light");
+    dispatch(themeMode(mode));
   };
 
   const toggleTheme = () => {
@@ -30,12 +26,16 @@ export const useDarkMode = () => {
     body.classList.add(newTheme === "dark" ? "dark-theme" : "light-theme");
   };
 
+  const themeToggler = () => {
+    theme === "light" ? setMode("dark") : setMode("light");
+
+    toggleTheme();
+  };
+
   useEffect(() => {
     const localTheme = window.localStorage.getItem("theme");
     localTheme && setTheme(localTheme);
     dispatch(themeMode(theme));
-
-    toggleTheme();
   }, []);
   return { theme, themeToggler };
 };
