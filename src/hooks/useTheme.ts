@@ -22,6 +22,7 @@ export const useDarkMode = () => {
     const currentTheme = body.classList.contains("dark-theme")
       ? "dark"
       : "light";
+
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     body.classList.remove(
       currentTheme === "dark" ? "dark-theme" : "light-theme"
@@ -35,6 +36,6 @@ export const useDarkMode = () => {
     dispatch(themeMode(theme));
 
     toggleTheme();
-  }, [theme]);
+  }, []);
   return { theme, themeToggler };
 };
