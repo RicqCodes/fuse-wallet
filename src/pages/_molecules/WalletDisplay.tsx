@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { toast } from "react-hot-toast";
 import { GrClose } from "react-icons/gr";
-import { LuAlertTriangle } from "react-icons/lu";
+import { LuAlertTriangle, LuCopy } from "react-icons/lu";
 import QRCode from "react-qr-code";
 
 import { useAppSelector } from "../../services/hooks";
 import { Button } from "../../styles/element.styled";
-import copy from "../../assets/copy.svg";
 import { device } from "../../styles/utils.styled";
 
 import { shortAddress } from "../../helper/utils";
@@ -56,9 +55,10 @@ const WalletDisplay: React.FC<Props> = ({ setShowModal }) => {
     <>
       <Heading>
         <h2>Your Public Address</h2>
-        <div style={{ cursor: "pointer" }} onClick={() => setShowModal(false)}>
-          <GrClose />
-        </div>
+        <GrClose
+          style={{ cursor: "pointer" }}
+          onClick={() => setShowModal(false)}
+        />
       </Heading>
       <Body>
         <Contract>
@@ -72,11 +72,7 @@ const WalletDisplay: React.FC<Props> = ({ setShowModal }) => {
           </QrCodeContainer>
           <div>
             <p>{wallet}</p>
-            <img
-              src={copy}
-              onClick={() => copyToClipboard(walletAddress)}
-              alt=""
-            />
+            <LuCopy onClick={() => copyToClipboard(walletAddress)} />
           </div>
         </Contract>
         <Note>
@@ -103,7 +99,7 @@ const WalletDisplay: React.FC<Props> = ({ setShowModal }) => {
 export default WalletDisplay;
 
 const Heading = styled.div`
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 1px solid rgb(var(--primary-color));
   width: 100%;
   padding: 2.4rem;
   display: flex;
@@ -112,6 +108,10 @@ const Heading = styled.div`
   svg {
     height: 3.2rem;
     width: 2.4rem;
+
+    path {
+      stroke: var(--accent-color);
+    }
   }
 
   h2 {
@@ -189,6 +189,10 @@ const Note = styled.div`
   border: 1px solid rgba(212, 167, 44, 0.5);
   background: #fff8c5;
 
+  p {
+    color: #000;
+  }
+
   svg {
     height: 2.4rem;
     width: 2.4rem;
@@ -197,8 +201,6 @@ const Note = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  padding: 1.8rem 0 3.2rem 0;
-
   ${() => device.down("sm")} {
     button {
       padding: 1.65rem 0;

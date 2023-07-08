@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
+import Footer from "./Footer";
 
 const Layout: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const Layout: React.FC = () => {
       <main>
         <Outlet />
       </main>
+      <Footer />
     </MainContainer>
   );
 };
@@ -24,6 +26,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 
   & main {
     width: 100%;
@@ -31,7 +34,7 @@ const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
 
-    height: calc(100vh - 14rem);
+    height: calc(100vh - 2.4rem);
   }
 
   @media screen and (max-width: 970px) {

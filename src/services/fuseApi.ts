@@ -1,6 +1,11 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { TokenList, TokenDetails, NativeBalance } from "./types";
+import {
+  type TokenList,
+  type TokenDetails,
+  type NativeBalance,
+  PriceData,
+} from "./types";
 
 // Define a service using a base URL and expected endpoints
 export const fuseApi = createApi({
@@ -17,6 +22,11 @@ export const fuseApi = createApi({
     getNativeTokenBalance: builder.query<NativeBalance, string>({
       query: (address) => `?module=account&action=balance&address=${address}`,
     }),
+    getPriceForAllToken: builder.query<PriceData, string>({
+      query: (contractAddress) => ({
+        url: `https://api.coingecko.com/api/v3/simple/token_price/fuse?contract_addresses=${contractAddress}&vs_currencies=usd`,
+      }),
+    }),
   }),
 });
 
@@ -27,4 +37,5 @@ export const {
   useGetAllTokenByAddressQuery,
   useGetTokenSupplyQuery,
   useGetNativeTokenBalanceQuery,
+  useLazyGetPriceForAllTokenQuery,
 } = fuseApi;

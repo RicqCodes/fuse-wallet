@@ -126,7 +126,7 @@ const InputWrapper = styled.div`
 
     &::placeholder {
       font-size: 1.6rem;
-      color: #bfbfbf;
+      color: var(--tertiary-color);
     }
   }
 

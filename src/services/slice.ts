@@ -4,6 +4,7 @@ import { AppState } from "./types";
 
 const initialState: AppState = {
   address: "",
+  themeMode: "light",
 };
 
 const appSlice = createSlice({
@@ -13,8 +14,11 @@ const appSlice = createSlice({
     addAddress: (state, action: PayloadAction<string>) => {
       state.address = action.payload;
     },
+    themeMode: (state, action: PayloadAction<string>) => {
+      state.themeMode = action.payload;
+    },
   },
 });
 
-export const { addAddress } = appSlice.actions;
+export const { addAddress, themeMode } = appSlice.actions;
 export default appSlice.reducer;

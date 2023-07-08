@@ -37,6 +37,9 @@ html {
   --accent-color: #000;
   --primary-color: 242,242,242;
   --secondary-color: #fff;
+  --over-lay: rgba(0,0,0,0.5);
+  --tertiary-color: #bfbfbf;
+  --increase-color: #1fe000;
   --warning: #9a6700;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
@@ -45,11 +48,32 @@ html {
   --breakpoint-xl: 1200px;
 }
 
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --accent-color: #fff;
+  --primary-color: 54,53,55;
+  --secondary-color: #000;
+}
+  } */
+
 body {
   margin: 0;
   min-height: 100vh;
   color: rgb(var(--accent-color));
   background: rgb(var(--primary-color));
+  /* transition: all 0.50s linear; */
+}
+
+body.light-theme {
+  --accent-color: #000;
+  --primary-color: 242,242,242;
+  --secondary-color: #fff;
+}
+
+body.dark-theme {
+  --accent-color: #fff;
+  --primary-color: 48, 48, 48;
+  --secondary-color: #252525;
 }
 
 ul, ol {

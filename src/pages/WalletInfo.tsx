@@ -6,28 +6,38 @@ import { Button } from "../styles/element.styled";
 import { HiOutlineArrowDown } from "react-icons/hi";
 import { RiArrowDownSLine } from "react-icons/ri";
 
-import fusd from "../assets/fUSD.png";
-import fuse from "../assets/sFuse.png";
 import Modal from "../components/Modal";
 import {
   useLazyGetAllTokenByAddressQuery,
   useGetNativeTokenBalanceQuery,
+  useLazyGetPriceForAllTokenQuery,
 } from "../services/fuseApi";
 import { useAppSelector } from "../services/hooks";
-import { parseBalance } from "../helper/utils";
+import {
+  calculateTokenPriceInUSD,
+  calculateTotalBalance,
+  createQueryString,
+  parseBalance,
+} from "../helper/utils";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addAddress } from "../services/slice";
 import { toast } from "react-hot-toast";
 import WalletDisplay from "./_molecules/WalletDisplay";
+import { defaultToken } from "../helper/defaultToken";
 
 const WalletInfo: React.FC = () => {
   const { address } = useParams<{ address: string }>();
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
+
+  const [showModal, setShowModal] = useState(false); // State to handle the visibility of the modal
+  const [displayedTokens, setDisplayedTokens] = useState(10); // Number of tokens to display initially
   const walletAddress = useAppSelector((app) => app.app.address);
-  const [getAllTokenByAddress, { data: tokenList }] =
+  const [getAllTokenByAddress, { data: tokenList, isLoading }] =
     useLazyGetAllTokenByAddressQuery();
+  // { pollingInterval: 5000 }
+  const [getPriceForAllTokenQuery, { data: tokenPrice }] =
+    useLazyGetPriceForAllTokenQuery({ pollingInterval: 55000 });
   const { data: nativeBalance } = useGetNativeTokenBalanceQuery(address || "");
 
   useEffect(() => {
@@ -35,6 +45,8 @@ const WalletInfo: React.FC = () => {
       try {
         await getAllTokenByAddress(address || "").unwrap();
         if (walletAddress === "") dispatch(addAddress(address || ""));
+        const queryString = createQueryString(tokenList?.result, defaultToken);
+        queryString !== "" && getPriceForAllTokenQuery(queryString);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         toast.error(err.error);
@@ -42,8 +54,15 @@ const WalletInfo: React.FC = () => {
     };
 
     addToStateOnRefresh();
-  }, []);
-  console.log(tokenList);
+  }, [tokenList]);
+
+  // Function to handle the "See More" button click
+  const handleSeeMoreClick = () => {
+    // Calculate the number of tokens to display after clicking "See More"
+    const newDisplayedTokens = displayedTokens + 10;
+    setDisplayedTokens(newDisplayedTokens);
+  };
+
   return (
     <WalletContainer>
       <h2>Wallet</h2>
@@ -52,7 +71,13 @@ const WalletInfo: React.FC = () => {
           <Balance>
             <h3>Your Balance</h3>
             <p>
-              $60
+              $
+              {calculateTotalBalance(
+                defaultToken,
+                tokenList,
+                tokenPrice,
+                nativeBalance
+              )}
               <span> +0%</span>
             </p>
           </Balance>
@@ -70,28 +95,34 @@ const WalletInfo: React.FC = () => {
             <InnerContainer>
               <h3>Your Coins</h3>
               <CoinContainer>
-                <Link to="#">
-                  <Coin>
-                    <Name>
-                      <img src={fuse} alt="Fuse Dollar" />
-                      <p>Fuse</p>
-                    </Name>
-                    <Value>
-                      <p>{parseBalance(nativeBalance?.result) || 0}</p>
-                    </Value>
-                  </Coin>
-                </Link>
-                <Link to={`/token/ca`}>
-                  <Coin>
-                    <Name>
-                      <img src={fusd} alt="Fuse Dollar" />
-                      <p>Fuse Dollar</p>
-                    </Name>
-                    <Value>
-                      <p>$0</p>
-                    </Value>
-                  </Coin>
-                </Link>
+                {defaultToken.map((token) => (
+                  <Link key={token.contractAddress} to={"#"}>
+                    <Coin>
+                      <Name>
+                        <img src={token.image} alt={token.name} />
+                        <Text>
+                          <p>{token.name}</p>
+                          <span>
+                            $
+                            {tokenPrice?.[token.contractAddress]?.usd?.toFixed(
+                              3
+                            ) || 0}
+                          </span>
+                        </Text>
+                      </Name>
+                      <Value>
+                        <p>{parseBalance(nativeBalance?.result) || 0}</p>
+                        <span>
+                          $
+                          {calculateTokenPriceInUSD(
+                            tokenPrice?.[token.contractAddress]?.usd || 0,
+                            parseBalance(nativeBalance?.result) || 0
+                          )}
+                        </span>
+                      </Value>
+                    </Coin>
+                  </Link>
+                ))}
 
                 {tokenList?.result !== null &&
                   tokenList?.result.map((token) => (
@@ -103,10 +134,25 @@ const WalletInfo: React.FC = () => {
                         <Name>
                           {/* <img src={voltage} alt="Fuse Dollar" /> */}
                           <div>{token.symbol.slice(0, -1)}</div>
-                          <p>{token.name}</p>
+                          <Text>
+                            <p>{token.name}</p>
+                            <span>
+                              $
+                              {tokenPrice?.[
+                                token.contractAddress
+                              ]?.usd?.toFixed(3) || 0}
+                            </span>
+                          </Text>
                         </Name>
                         <Value>
                           <p>{parseBalance(token.balance) || 0}</p>
+                          <span>
+                            $
+                            {calculateTokenPriceInUSD(
+                              tokenPrice?.[token.contractAddress]?.usd || 0,
+                              parseBalance(token.balance) || 0
+                            )}
+                          </span>
                         </Value>
                       </Coin>
                     </Link>
@@ -114,10 +160,15 @@ const WalletInfo: React.FC = () => {
               </CoinContainer>
             </InnerContainer>
           </Container>
-          <ShowMore>
-            <p>Show More</p>
-            <RiArrowDownSLine />
-          </ShowMore>
+          <ShowMoreContainer>
+            {(tokenList?.result?.length || 0) > displayedTokens && (
+              // Render the "See More" button if there are more tokens to display
+              <ShowMore>
+                <p>Show More</p>
+                <RiArrowDownSLine onClick={handleSeeMoreClick} />
+              </ShowMore>
+            )}
+          </ShowMoreContainer>
         </MainContainer>
       </Card>
       {showModal && (
@@ -140,6 +191,7 @@ const WalletContainer = styled.div`
   gap: 1.6rem;
   align-items: center;
   justify-items: center;
+  color: var(--accent-color);
 
   h2 {
     align-self: flex-start;
@@ -191,7 +243,7 @@ const Balance = styled.div`
     font-weight: 700;
 
     span {
-      color: #1fe000;
+      color: var(--increase-color);
       font-size: 1.4rem;
       font-weight: 500;
     }
@@ -257,7 +309,7 @@ const Name = styled.div`
     font-weight: 600;
   }
 
-  > div {
+  > div:first-child {
     height: 4.2rem;
     width: 4.2rem;
     border-radius: 50%;
@@ -269,18 +321,6 @@ const Name = styled.div`
     font-weight: 500;
     position: relative;
     color: var(--secondary-color);
-
-    /* &::after {
-      content: "";
-      height: 85%;
-      width: 85%;
-      border-radius: 50%;
-
-      border: 3px solid #57ae00;
-      position: absolute;
-      top: 3px;
-      left: 3px;
-    } */
   }
 
   img,
@@ -289,13 +329,29 @@ const Name = styled.div`
     width: 4.2rem;
   }
 `;
+
+const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Value = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-start;
+
   p {
     font-size: 2rem;
     font-weight: 700;
   }
+
+  span {
+  }
 `;
 
+const ShowMoreContainer = styled.div`
+  padding-bottom: 2rem;
+`;
 const ShowMore = styled.div`
   width: 100%;
   display: flex;

@@ -1,11 +1,12 @@
 import React, { useMemo } from "react";
 import { styled } from "styled-components";
 import Card from "../components/Card";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   useGetAllTokenByAddressQuery,
   useGetTokenSupplyQuery,
 } from "../services/fuseApi";
+import { FiArrowLeftCircle } from "react-icons/fi";
 import { TokenInfo } from "../services/types";
 import { calculatePercentageOfSupply, parseBalance } from "../helper/utils";
 
@@ -15,6 +16,7 @@ const CoinDetails: React.FC = () => {
   const wallet = searchParams.get("wallet");
   const { data: tokenList } = useGetAllTokenByAddressQuery(wallet || "");
   const { data: tokenDetails } = useGetTokenSupplyQuery(contractAddress || "");
+  const navigate = useNavigate();
 
   const tokens = tokenList?.result;
 
@@ -33,7 +35,9 @@ const CoinDetails: React.FC = () => {
 
   return (
     <DetailsContainer>
+      <FiArrowLeftCircle onClick={() => navigate(-1)} />
       <h2>Details</h2>
+
       <Card>
         <InnerContainer>
           <h3>{filteredToken?.[0]?.name}</h3>
@@ -60,7 +64,7 @@ const CoinDetails: React.FC = () => {
                 {calculatePercentageOfSupply(
                   parseBalance(tokenDetails?.result),
                   parseBalance(filteredToken?.[0]?.balance)
-                )}
+                ) || 0}
                 %
               </p>
             </Detail>
@@ -82,10 +86,16 @@ const DetailsContainer = styled.div`
   gap: 1.6rem;
   align-items: center;
   justify-items: center;
+  color: var(--accent-color);
 
+  svg,
   h2 {
     align-self: flex-start;
     font-size: 2.8rem;
+  }
+
+  svg {
+    cursor: pointer;
   }
 `;
 
