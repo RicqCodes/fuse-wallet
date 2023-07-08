@@ -11,6 +11,7 @@ import WalletInput from "./pages/WalletInput";
 import WalletInfo from "./pages/WalletInfo";
 import CoinDetails from "./pages/CoinDetails";
 import { Toaster } from "react-hot-toast";
+import ScrollToTop from "./components/functional/ScrollToTop";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
+      <ScrollToTop />
       <Global />
       <RouterProvider router={router} />
       <Toaster
