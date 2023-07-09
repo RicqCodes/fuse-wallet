@@ -1,10 +1,6 @@
 # Fuse Wallet MVP Documentation
 
-The Fuse Wallet MVP is a React application that allows users to view their token balances on the Fuse Network and receive tokens. This documentation provides an overview of the project requirements, wallet functionalities, and technical implementation details.
-
-# MyFuseWallet MVP Documentation
-
-This documentation provides an overview of the implementation details for MyFuseWallet MVP, a React application that displays token balances on the Fuse Network and enables token reception.
+The Fuse Wallet MVP is a React application that allows users to view their token balances on the Fuse Network and receive tokens. This documentation provides an overview of the implementation details for MyFuseWallet MVP, a React application that displays token balances on the Fuse Network and enables token reception.
 
 ## Installation
 
