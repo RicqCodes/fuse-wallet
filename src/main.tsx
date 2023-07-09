@@ -11,13 +11,13 @@ import WalletInput from "./pages/WalletInput";
 import WalletInfo from "./pages/WalletInfo";
 import CoinDetails from "./pages/CoinDetails";
 import { Toaster } from "react-hot-toast";
-import ErrorComponent from "./pages/ErrorComponent";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <ErrorComponent />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

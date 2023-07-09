@@ -7,7 +7,7 @@ interface ErrorType extends Error {
   statusText?: string;
 }
 
-const ErrorComponent = () => {
+const ErrorPage = () => {
   const error = useRouteError() as ErrorType;
 
   return (
@@ -27,7 +27,7 @@ const ErrorComponent = () => {
   );
 };
 
-export default ErrorComponent;
+export default ErrorPage;
 
 const ErrorContainer = styled.div`
   display: flex;
