@@ -59,19 +59,24 @@ const QrReader: React.FC<Props> = ({ setShowModal, setWalletAddress }) => {
 export default QrReader;
 
 const Heading = styled.div`
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 1px solid rgb(var(--primary-color));
   width: 100%;
   padding: 2.4rem;
   display: flex;
   justify-content: space-between;
+  color: var(--accent-color);
+
+  h2 {
+    font-size: 2.4rem;
+  }
 
   svg {
     height: 3.2rem;
     width: 2.4rem;
-  }
 
-  h2 {
-    font-size: 2.4rem;
+    path {
+      stroke: var(--accent-color);
+    }
   }
 
   ${() => device.down("sm")} {
