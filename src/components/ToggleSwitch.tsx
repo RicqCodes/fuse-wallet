@@ -16,7 +16,6 @@ interface Switcher extends ToggleBox {
 
 export const ToggleSwitch: React.FC<Props> = ({ toggled, themeToggler }) => {
   const [toggle, setToggle] = useState(toggled);
-  console.log("toggled", toggled);
   const handleToggle = () => {
     setToggle(!toggle);
     themeToggler && themeToggler();
@@ -52,7 +51,6 @@ const ToggleBox = styled.div<ToggleBox>`
 
 const Switcher = styled.div<Switcher>`
   ${({ $state }) => {
-    console.log("state", $state);
     switch ($state) {
       case true:
         return css`
