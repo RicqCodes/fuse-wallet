@@ -4,7 +4,7 @@ import { useAppSelector } from "../services/hooks";
 
 const Logo: React.FC = () => {
   const theme = useAppSelector((app) => app.app.themeMode);
-
+  console.log("logo", theme);
   return (
     <>
       <LogoContainer>

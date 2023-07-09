@@ -106,6 +106,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 6.4rem;
 `;
 
 const InputWrapper = styled.div`
@@ -116,6 +117,7 @@ const InputWrapper = styled.div`
   padding: 0 1.8rem;
   display: flex;
   align-items: center;
+  color: var(--accent-color);
 
   & input[type="text"] {
     width: 100%;
@@ -145,6 +147,7 @@ const InputWrapper = styled.div`
 
 const InnerContainer = styled.div`
   width: 100%;
+  margin-top: 6.4rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;

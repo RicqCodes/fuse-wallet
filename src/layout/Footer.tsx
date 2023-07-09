@@ -6,7 +6,6 @@ import { styled } from "styled-components";
 const Footer: React.FC = () => {
   const { theme, themeToggler } = useDarkMode();
   const year = new Date().getFullYear();
-
   return (
     <FooterContainer>
       <small>©{year} Fuse. All Rights Reserved</small>

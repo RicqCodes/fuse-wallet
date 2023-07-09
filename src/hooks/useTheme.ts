@@ -27,14 +27,14 @@ export const useDarkMode = () => {
 
   const themeToggler = () => {
     theme === "light" ? setMode("dark") : setMode("light");
-
     toggleTheme();
   };
 
   useEffect(() => {
     const localTheme = window.localStorage.getItem("theme");
     localTheme && setTheme(localTheme);
-    dispatch(themeMode(theme));
+    dispatch(themeMode(localTheme || ""));
+    document.body.classList.add(`${localTheme}-theme`);
   }, []);
   return { theme, themeToggler };
 };

@@ -1,4 +1,5 @@
 import { Link, useRouteError } from "react-router-dom";
+import { TiWarning } from "react-icons/ti";
 import { styled } from "styled-components";
 import { Button } from "../styles/element.styled";
 
@@ -11,10 +12,11 @@ const ErrorComponent = () => {
 
   return (
     <ErrorContainer>
-      <HeadingText>
+      <Heading>
+        <TiWarning />
         <h1>Oops!</h1>
         <p>Sorry, an unexpected error has occurred.</p>
-      </HeadingText>
+      </Heading>
       <p>
         <i>{error.statusText || error.message}</i>
       </p>
@@ -34,7 +36,8 @@ const ErrorContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   height: 100vh;
-  gap: 3.6rem;
+  gap: 2.8rem;
+  padding: 2.4rem;
 
   h1 {
     font-size: 3.6rem;
@@ -42,6 +45,11 @@ const ErrorContainer = styled.div`
 
   p {
     font-size: 1.8rem;
+    text-align: center;
+
+    i {
+      color: var(--warning);
+    }
   }
 
   button {
@@ -53,8 +61,13 @@ const ErrorContainer = styled.div`
   }
 `;
 
-const HeadingText = styled.div`
+const Heading = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  svg {
+    font-size: 14rem;
+    color: rgba(0, 0, 0, 0.7);
+  }
 `;

@@ -25,6 +25,7 @@ export default Layout;
 const MainContainer = styled.div`
   padding: 0 12.4rem 3.45rem 12.4rem;
   width: 100%;
+  height: 100%;
   max-width: var(--max-width);
   display: flex;
   flex-direction: column;
@@ -36,6 +37,10 @@ const MainContainer = styled.div`
     padding: 2.4rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    /* height: calc(100vh - 8.4rem); */
   }
 
   @media screen and (max-width: 970px) {
