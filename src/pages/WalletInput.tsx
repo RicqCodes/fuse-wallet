@@ -117,6 +117,7 @@ const InputWrapper = styled.div`
   padding: 0 1.8rem;
   display: flex;
   align-items: center;
+  gap: 2.4rem;
   color: var(--accent-color);
 
   & input[type="text"] {
