@@ -125,6 +125,7 @@ const InputWrapper = styled.div`
     background-color: transparent;
     outline: none;
     font-size: 1.8rem;
+    color: var(--accent-color);
 
     &::placeholder {
       font-size: 1.6rem;
