@@ -84,17 +84,17 @@ src/                  # The main source code directory.
 ## Dependencies
 
 - React: JavaScript library for building user interfaces.
-  -@reduxjs/toolkit: Redux toolkit for efficient Redux development.
-  -ethers: Library for interacting with Ethereum and Ethereum-like blockchains.
-  -react: JavaScript library for building user interfaces.
-  -react-dom: React package for working with the DOM.
-  -react-hot-toast: React library for customizable toast notifications.
-  -react-icons: Collection of popular icons as React components.
-  -react-qr-code: Library for generating QR codes in React applications.
-  -react-qr-scanner: React component for scanning QR codes using the device's camera.
-  -react-redux: React bindings for Redux state management.
-  -react-router-dom: Routing library for React applications.
-  -styled-components: CSS-in-JS library for styling React components.
+- @reduxjs/toolkit: Redux toolkit for efficient Redux development.
+- ethers: Library for interacting with Ethereum and Ethereum-like blockchains.
+- react: JavaScript library for building user interfaces.
+- react-dom: React package for working with the DOM.
+- react-hot-toast: React library for customizable toast notifications.
+- react-icons: Collection of popular icons as React components.
+- react-qr-code: Library for generating QR codes in React applications.
+- react-qr-scanner: React component for scanning QR codes using the device's camera.
+- react-redux: React bindings for Redux state management.
+- react-router-dom: Routing library for React applications.
+- styled-components: CSS-in-JS library for styling React components.
 
 ## Acknowledgments
 
