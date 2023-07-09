@@ -31,8 +31,6 @@ export const useDarkMode = () => {
     toggleTheme();
   };
 
-  console.log(theme);
-
   useEffect(() => {
     const localTheme = window.localStorage.getItem("theme");
     localTheme && setTheme(localTheme);

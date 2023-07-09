@@ -3,16 +3,20 @@ import { styled } from "styled-components";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
+import ScrollToTop from "../components/functional/ScrollToTop";
 
 const Layout: React.FC = () => {
   return (
-    <MainContainer>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-    </MainContainer>
+    <>
+      <ScrollToTop />
+      <MainContainer>
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+      </MainContainer>
+    </>
   );
 };
 

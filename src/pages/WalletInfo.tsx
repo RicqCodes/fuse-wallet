@@ -17,6 +17,7 @@ import {
   calculateTokenPriceInUSD,
   calculateTotalBalance,
   createQueryString,
+  isWalletAddress,
   parseBalance,
 } from "../helper/utils";
 import { Link, useParams } from "react-router-dom";
@@ -28,14 +29,20 @@ import { defaultToken } from "../helper/defaultToken";
 
 const WalletInfo: React.FC = () => {
   const { address } = useParams<{ address: string }>();
-  const dispatch = useDispatch();
 
+  // Throw Error if Wallet is not valid
+  const isValid = isWalletAddress(address || "");
+  if (!isValid)
+    throw new Error(
+      "Provided wallet address is not valid ERC20 wallet address"
+    );
+
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false); // State to handle the visibility of the modal
   const [displayedTokens, setDisplayedTokens] = useState(10); // Number of tokens to display initially
   const walletAddress = useAppSelector((app) => app.app.address);
   const [getAllTokenByAddress, { data: tokenList }] =
-    useLazyGetAllTokenByAddressQuery();
-  // { pollingInterval: 5000 }
+    useLazyGetAllTokenByAddressQuery({ pollingInterval: 10000 });
   const [getPriceForAllTokenQuery, { data: tokenPrice }] =
     useLazyGetPriceForAllTokenQuery({ pollingInterval: 55000 });
   const { data: nativeBalance } = useGetNativeTokenBalanceQuery(address || "");
