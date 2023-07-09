@@ -21,10 +21,30 @@ cd myfusewallet
 npm install
 ```
 
-## Requirements
+## Usage
 
-1. [Figma Design](https://www.figma.com/file/7qvEbZ4eF21rhimj4lz8zA/Home-Task?type=design&node-id=0%3A1&mode=design&t=AfdNenaiSm4LgQaJ-1): Use the provided Figma file for the UI design.
-2. Implement wallet functionalities using the Fuse Explorer API.
+1. Launch the application:
+
+```shell
+npm start
+```
+
+## Implementation Details
+
+### Directory Structure
+
+```shell
+public/
+src/                  # The main source code directory.
+
+  components/         # Contains reusable React components.
+  pages/              # Contains the main pages of the application.
+  services/           # Includes API service files for interacting with the Fuse Explorer API.
+  utils/              # Contains utility functions and helpers.
+  App.js              # The entry point of the application.
+  index.js            # Renders the React app to the DOM.
+
+
 
 ## Wallet Functionalities
 
@@ -64,3 +84,4 @@ Incorporate QR code functionality to enhance user experience:
 
 - Balances are returned in a raw format, and decimals must be accounted for.
 - Use a mathematical formula or the [ethers.js](https://docs.ethers.org/v6/) / [web3.js](https://web3js.org/) library to calculate and display the user's token balance accurately up to three decimal points.
+```

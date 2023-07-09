@@ -23,7 +23,7 @@ const WalletInput: React.FC = () => {
   const [getAllTokenByAddress, { isLoading: isFetchingToken }] =
     useLazyGetAllTokenByAddressQuery();
 
-  const handleWalletAdd = async () => {
+  const handleWalletSubmit = async () => {
     // Check to see if user input is an empty string
     if (walletAddress === "") {
       toast("Wallet can not be empty");
@@ -72,7 +72,7 @@ const WalletInput: React.FC = () => {
             type="button"
             $fontsize="1.6"
             $fullWidth
-            onClick={handleWalletAdd}
+            onClick={handleWalletSubmit}
             disabled={isFetchingToken}
           >
             {isFetchingToken ? (
