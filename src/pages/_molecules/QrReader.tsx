@@ -3,27 +3,27 @@ import { styled } from "styled-components";
 import { GrClose } from "react-icons/gr";
 import { device } from "../../styles/utils.styled";
 // import QrScanner from "react-qr-scanner";
+
 import { useZxing } from "react-zxing";
 interface Props {
   handleOffModal: () => void;
   setWalletAddress: (value: string) => void;
 }
 
-interface ScanResult {
-  text: string;
-  format: number;
-  numBits: number;
-  rawBytes: Uint8Array;
-  resultMetadata: Map<number, any>;
-  resultPoints: any[];
-  timestamp: number;
-}
-
 const QrReader: React.FC<Props> = ({ handleOffModal, setWalletAddress }) => {
+  const constraints: MediaStreamConstraints = {
+    video: {
+      facingMode: "environment",
+    },
+    audio: false,
+  };
+
   const { ref } = useZxing({
     onResult(result) {
       setWalletAddress(result.getText());
+      handleOffModal();
     },
+    constraints,
   });
 
   return (
@@ -36,14 +36,6 @@ const QrReader: React.FC<Props> = ({ handleOffModal, setWalletAddress }) => {
       </Heading>
       <Body>
         <ScannerContainer>
-          {/* <QrScanner
-            delay={300}
-            facingmode={"rear"}
-            legacymode={true}
-            onError={handleError}
-            onScan={handleScan}
-            style={{ width: "100%" }}
-          /> */}
           <video ref={ref} />
         </ScannerContainer>
       </Body>
