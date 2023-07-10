@@ -104,8 +104,8 @@ const Nav = styled.nav<Nav>`
             height: 220px;
             top: 9rem;
             overflow: hidden;
-            width: calc(100% + 48px);
-            margin-left: -24px;
+            width: calc(100% + 45px);
+            margin-left: -23px;
             background: var(--accent-color);
             transition: height 0.5s ease-in;
           `
@@ -114,8 +114,8 @@ const Nav = styled.nav<Nav>`
             height: 0;
             top: 9rem;
             overflow: hidden;
-            width: calc(100% + 48px);
-            margin-left: -24px;
+            width: calc(100% + 45px);
+            margin-left: -23px;
             background: var(--accent-color);
             transition: height 0.5s ease-in;
           `}
