@@ -87,7 +87,7 @@ const Content = styled.div<Content>`
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     animation: ${slideUpDown} 0.5s linear;
-    padding-bottom: 9.3rem;
+    padding-bottom: 10rem;
   }
 
   &.transition {

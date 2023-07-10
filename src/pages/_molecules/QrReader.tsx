@@ -104,10 +104,10 @@ const ScannerContainer = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  height: 34rem;
+  height: 45rem;
 
   ${() => device.down("sm")} {
-    height: 22rem;
+    height: 38rem;
     border-radius: 4.8rem;
   }
 `;
