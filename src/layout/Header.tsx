@@ -112,9 +112,8 @@ const Nav = styled.nav<Nav>`
             width: calc(100% + 45.4px);
             margin-left: -23px;
             background: var(--accent-color);
-            transition: height 0.5s ease-in;
             box-shadow: var(--box-shadow);
-            transition: height 0.5s ease-in;
+            transition: height 0.3s ease-in;
           `
         : css`
             position: absolute;
@@ -124,7 +123,7 @@ const Nav = styled.nav<Nav>`
             width: calc(100% + 45.4px);
             margin-left: -23px;
             background: var(--accent-color);
-            transition: height 0.5s ease-in;
+            transition: height 0.3s ease-in;
           `}
 
     ul {

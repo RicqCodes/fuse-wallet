@@ -2,7 +2,6 @@ import React from "react";
 import { styled } from "styled-components";
 import { GrClose } from "react-icons/gr";
 import { device } from "../../styles/utils.styled";
-// import QrScanner from "react-qr-scanner";
 
 import { useZxing } from "react-zxing";
 interface Props {
