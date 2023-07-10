@@ -1,6 +1,6 @@
 # Fuse Wallet MVP Documentation
 
-The Fuse Wallet MVP is a React application that allows users to view their token balances on the Fuse Network and receive tokens. This documentation provides an overview of the implementation details for MyFuseWallet MVP, a React application that displays token balances on the Fuse Network and enables token reception.
+The Fuse Wallet MVP is a React application that allows users to view their token balances on the Fuse Network and receive tokens. This documentation provides an overview of the implementation details for MyFuseWallet MVP.
 
 ## Installation
 
@@ -26,8 +26,6 @@ npm install
 npm start
 ```
 
-## Implementation Details
-
 ### Directory Structure
 
 ```shell
@@ -49,15 +47,14 @@ src/                  # The main source code directory.
 ### Inserting Wallet Address
 
 - The `WalletInput` component allows users to input their wallet address.
-- On submission. i.e on click of sumbit, `handleWalletSubmit` function is called. The entered address is ran through a validation check if wallet is a valid one, it is then stored in the component's state.
-- The function then sends a request to the Fuse Explorer API to fetch necessary details.
+- On submission, i.e., on click of the submit button, the `handleWalletSubmit` function is called. The entered address is then run through a validation check. If the wallet is valid, it is stored in the component's state.
+- The function then sends a request to the Fuse Explorer API to fetch the necessary details.
 
 ### Visualizing Token Balances
 
-- The `WalletInfo` component has the implementation to retrieves the user's token balances from the Fuse Explorer API using the `tokenlist` endpoint
-  available on coingecko's api
-- It displays 2 cards the user balance and the wallets token holdings
-- The Balances are calculated based on the token the wallet token holdings and if it is on coingecko's price feeds.
+- The `WalletInfo` component is responsible for retrieving the user's token balances from the Fuse Explorer API using the `tokenlist` endpoint available on Coingecko's API.
+- It displays two cards: one for the user's balance and another for the wallet's token holdings.
+- The balances are calculated based on the tokens in the wallet's holdings and whether they are available on Coingecko's price feeds.
 
 ### Detailed Token Information
 
@@ -67,14 +64,14 @@ src/                  # The main source code directory.
 
 ### Receiving Tokens
 
-- The `ReceiveButton` on the `WalletInfo` component displays a modal.
+- The `ReceiveButton` on the `WalletInfo` component triggers the display of a modal.
 - The modal contains the user's public address which can be copied for receiving tokens.
 
 ### QR Code Functionality
 
-- The `ReceiveButton` includes QR code functionality using a third-party library called `react-qr-code`.
+- The `ReceiveButton` modal includes QR code functionality.
 - Upon clicking the "Receive" button, a QR code of the user's wallet address is displayed in the modal.
-- Additionally, the wallet address input field on the `WalletInput` page has a "Scan QR Code" icon that triggers the device's camera to scan a QR code representing a wallet address.
+- Additionally, the wallet address input field on the `WalletInput` page features a "Scan QR Code" icon that, when clicked, triggers the device's camera to scan a QR code representing a wallet address.
 
 ### Dark Mode and Light Mode
 
@@ -98,7 +95,6 @@ src/                  # The main source code directory.
 
 ## Acknowledgments
 
-- The Fuse Wallet MVP is based on the requirements provided by Fuse Wallet.
 - The project utilizes the Fuse Explorer API for retrieving token data and Coingecko API for retreiving prices.
 
 Feel free to explore the source code in the repository for detailed implementation and code examples.
