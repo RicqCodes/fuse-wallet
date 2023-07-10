@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { css, styled } from "styled-components";
 import { FaTwitter } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
