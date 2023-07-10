@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef } from "react";
+import React, { ReactElement, useRef } from "react";
 import { css, styled } from "styled-components";
 
 import { popup, slideUpDown } from "../styles/animation.styled";
