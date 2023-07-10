@@ -13,7 +13,7 @@ interface Props {
 const QrReader: React.FC<Props> = ({ handleOffModal, setWalletAddress }) => {
   const constraints: MediaStreamConstraints = {
     video: {
-      facingMode: "rear",
+      facingMode: "environment",
     },
     audio: false,
   };
