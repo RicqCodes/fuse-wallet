@@ -15,23 +15,35 @@ const Header: React.FC = () => {
   const [openNav, setOpenNav] = useState(false);
 
   useEffect(() => {
-    const switchNavOff = () => {
+    const switchNavOffOnBigScreen = () => {
       if (window.innerWidth >= 960) {
         setOpenNav(false);
       }
     };
 
+    const switchNavOffOnBodyClick = (event: MouseEvent) => {
+      const targetElement = event.target as HTMLElement;
+
+      if (!targetElement.closest(".header") && openNav) {
+        setTimeout(() => {
+          setOpenNav(false);
+        }, 0);
+      }
+    };
+
     // Add event listener for window resize
-    window.addEventListener("resize", switchNavOff);
+    window.addEventListener("resize", switchNavOffOnBigScreen);
+    document.body.addEventListener("click", switchNavOffOnBodyClick);
 
     // Cleanup the event listener on component unmount
     return () => {
-      window.removeEventListener("resize", switchNavOff);
+      window.removeEventListener("resize", switchNavOffOnBigScreen);
+      document.body.removeEventListener("click", switchNavOffOnBodyClick);
     };
   }, []);
 
   return (
-    <HeaderContainer>
+    <HeaderContainer className="header">
       <Logo />
       <Nav $open={openNav}>
         <ul>
