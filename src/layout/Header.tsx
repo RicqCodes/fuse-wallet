@@ -103,7 +103,7 @@ const Nav = styled.nav<Nav>`
         ? css`
             position: absolute;
             height: 23vh;
-            top: 8rem;
+            top: 9rem;
             overflow: hidden;
             width: calc(100% + 48px);
             margin-left: -24px;
