@@ -31,7 +31,6 @@ export const slideInDown = keyframes`
 
 export const slideUpDown = keyframes`
     0% {
-      opacity: 0;
       -webkit-transform: translateY(560px);
       -ms-transform: translateY(560px);
       transform: translateY(560px);

@@ -1,21 +1,56 @@
-import React from "react";
-import { styled } from "styled-components";
+import React, { useEffect, useState } from "react";
+import { css, styled } from "styled-components";
 import { FaTwitter } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 
 import Logo from "../components/Logo";
 import { Button } from "../styles/element.styled";
 import { device } from "../styles/utils.styled";
 
+interface Nav {
+  $open: boolean;
+}
+
 const Header: React.FC = () => {
+  const [openNav, setOpenNav] = useState(false);
+
+  useEffect(() => {
+    const switchNavOff = () => {
+      if (window.innerWidth >= 960) {
+        setOpenNav(false);
+      }
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", switchNavOff);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", switchNavOff);
+    };
+  }, []);
+
   return (
     <HeaderContainer>
       <Logo />
-      <Nav>
+      <Nav $open={openNav}>
         <ul>
-          <li>Network</li>
-          <li>Developers</li>
-          <li>Solutions</li>
-          <li>Tools</li>
+          <li>
+            <p>Network</p>
+            {openNav && <IoIosArrowDown />}
+          </li>
+          <li>
+            <p>Developers</p>
+            {openNav && <IoIosArrowDown />}
+          </li>
+          <li>
+            <p>Solutions</p>
+            {openNav && <IoIosArrowDown />}
+          </li>
+          <li>
+            <p>Tools</p>
+            {openNav && <IoIosArrowDown />}
+          </li>
         </ul>
       </Nav>
       <NavBarRight>
@@ -25,7 +60,7 @@ const Header: React.FC = () => {
             Build on Fuse
           </Button>
         </ButtonContainer>
-        <NavButton>
+        <NavButton onClick={() => setOpenNav((prev) => !prev)}>
           <div></div>
           <div></div>
           <div></div>
@@ -45,12 +80,12 @@ const HeaderContainer = styled.div`
   top: 0;
   position: sticky;
   background-color: rgb(var(--primary-color));
-  /* backdrop-filter: blur(8px); */
   z-index: 99;
   padding: 24px 0;
+  position: relative;
 `;
 
-const Nav = styled.nav`
+const Nav = styled.nav<Nav>`
   ul {
     display: flex;
     align-items: flex-start;
@@ -63,7 +98,49 @@ const Nav = styled.nav`
   }
 
   ${() => device.down("md")} {
-    display: none;
+    ${({ $open }) =>
+      $open
+        ? css`
+            position: absolute;
+            height: 23vh;
+            top: 8rem;
+            overflow: hidden;
+            width: calc(100% + 48px);
+            margin-left: -24px;
+            background: var(--accent-color);
+            transition: height 0.5s ease-in;
+          `
+        : css`
+            position: absolute;
+            height: 0;
+            top: 8rem;
+            overflow: hidden;
+            width: calc(100% + 48px);
+            margin-left: -24px;
+            background: var(--accent-color);
+            transition: height 0.5s ease-in;
+          `}
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      transition: height 0.5s ease-in-out;
+
+      li {
+        color: var(--secondary-color);
+        width: 100%;
+        padding: 1.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 0.0625rem solid rgba(151, 142, 161, 0.5);
+
+        svg {
+          color: var(--secondary-color);
+        }
+      }
+    }
   }
 `;
 
@@ -78,7 +155,7 @@ const ButtonContainer = styled.div`
   }
 
   ${() => device.down("sm")} {
-    display: none;
+    /* display: none; */
   }
 `;
 
