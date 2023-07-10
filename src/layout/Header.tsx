@@ -82,7 +82,6 @@ const HeaderContainer = styled.div`
   background-color: rgb(var(--primary-color));
   z-index: 99;
   padding: 24px 0;
-  position: relative;
 `;
 
 const Nav = styled.nav<Nav>`
@@ -102,7 +101,7 @@ const Nav = styled.nav<Nav>`
       $open
         ? css`
             position: absolute;
-            height: 23vh;
+            height: 220px;
             top: 9rem;
             overflow: hidden;
             width: calc(100% + 48px);
@@ -113,7 +112,7 @@ const Nav = styled.nav<Nav>`
         : css`
             position: absolute;
             height: 0;
-            top: 8rem;
+            top: 9rem;
             overflow: hidden;
             width: calc(100% + 48px);
             margin-left: -24px;
