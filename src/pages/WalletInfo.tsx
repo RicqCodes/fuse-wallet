@@ -30,6 +30,7 @@ import {
 import WalletDisplay from "./_molecules/WalletDisplay";
 import { defaultToken } from "../helper/defaultToken";
 import { device } from "../styles/utils.styled";
+import useToggle from "../hooks/useToggle";
 
 const WalletInfo: React.FC = () => {
   const { address } = useParams<{ address: string }>();
@@ -42,7 +43,9 @@ const WalletInfo: React.FC = () => {
     );
 
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false); // State to handle the visibility of the modal
+  const { toggle, toggleRef, toggledElementRef, handleToggle } = useToggle({
+    eventType: "click",
+  }); // hook to handle the visibility of the modal
   const [displayedTokens, setDisplayedTokens] = useState(10); // Number of tokens to display initially
   const walletAddress = useAppSelector((app) => app.app.address);
   const [getAllTokenByAddress, { data: tokenList }] =
@@ -80,10 +83,10 @@ const WalletInfo: React.FC = () => {
       setTransition(true);
       setTimeout(() => {
         setTransition(false);
-        setShowModal(false);
+        handleToggle();
       }, 500);
     } else {
-      setShowModal(false);
+      handleToggle();
     }
   };
 
@@ -105,7 +108,11 @@ const WalletInfo: React.FC = () => {
               <span> +0%</span>
             </p>
           </Balance>
-          <Button onClick={() => setShowModal(true)} $fontsize="1.6">
+          <Button
+            ref={toggleRef as React.RefObject<HTMLButtonElement>}
+            onClick={handleToggle}
+            $fontsize="1.6"
+          >
             <div>
               <HiOutlineArrowDown />
               <p>Receive</p>
@@ -195,8 +202,14 @@ const WalletInfo: React.FC = () => {
           </ShowMoreContainer>
         </MainContainer>
       </Card>
-      {showModal && (
-        <Modal handleOffModal={handleOffModal} transition={transition}>
+      {toggle && (
+        <Modal
+          handleOffModal={handleOffModal}
+          transition={transition}
+          toggledElementRef={
+            toggledElementRef as React.RefObject<HTMLDivElement>
+          }
+        >
           <WalletDisplay handleOffModal={handleOffModal} />
         </Modal>
       )}

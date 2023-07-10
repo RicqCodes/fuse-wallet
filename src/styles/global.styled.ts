@@ -41,6 +41,8 @@ html {
   --tertiary-color: #bfbfbf;
   --increase-color: #1fe000;
   --warning: #9a6700;
+  --box-shadow:  0 2px 4px rgba(0, 0, 0, 0.12),
+              0 2px 3px rgba(0, 0, 0, 0.24);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -63,12 +65,16 @@ body.light-theme {
   --accent-color: #000;
   --primary-color: 242,242,242;
   --secondary-color: #fff;
+  --box-shadow:  0 2px 4px rgba(255, 255, 255, 0.12),
+              0 2px 3px rgba(255, 255, 255, 0.24);
 }
 
 body.dark-theme {
   --accent-color: #fff;
   --primary-color: 48, 48, 48;
   --secondary-color: #252525;
+  --box-shadow:  0 2px 4px rgba(0, 0, 0, 0.12),
+              0 2px 3px rgba(0, 0, 0, 0.24);
 }
 
 ul, ol {

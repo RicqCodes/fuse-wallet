@@ -7,6 +7,7 @@ import { device } from "../styles/utils.styled";
 interface Props {
   transition: boolean;
   handleOffModal: () => void;
+  toggledElementRef: React.RefObject<HTMLDivElement>;
   children: ReactElement;
 }
 
@@ -14,7 +15,12 @@ interface Content {
   $transition: boolean;
 }
 
-const Modal: React.FC<Props> = ({ transition, handleOffModal, children }) => {
+const Modal: React.FC<Props> = ({
+  transition,
+  handleOffModal,
+  toggledElementRef,
+  children,
+}) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   const stopPropagation = (e: React.MouseEvent<HTMLDivElement>): void => {
@@ -22,7 +28,7 @@ const Modal: React.FC<Props> = ({ transition, handleOffModal, children }) => {
   };
 
   return (
-    <ModalOuterContainer onClick={handleOffModal}>
+    <ModalOuterContainer ref={toggledElementRef} onClick={handleOffModal}>
       <InnerContent>
         <Content
           id="content"

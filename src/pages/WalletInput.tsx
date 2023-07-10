@@ -13,12 +13,16 @@ import { useLazyGetAllTokenByAddressQuery } from "../services/fuseApi";
 import { useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
 import QrReader from "./_molecules/QrReader";
+import useToggle from "../hooks/useToggle";
 
 const WalletInput: React.FC = () => {
   const dispatch = useDispatch();
   const [walletAddress, setWalletAddress] = useState("");
   const [transition, setTransition] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const { toggle, toggleRef, toggledElementRef, handleToggle } = useToggle({
+    eventType: "click",
+  }); // hook to handle the visibility of the modal
+
   const navigate = useNavigate();
 
   const [getAllTokenByAddress, { isLoading: isFetchingToken }] =
@@ -58,10 +62,10 @@ const WalletInput: React.FC = () => {
       setTransition(true);
       setTimeout(() => {
         setTransition(false);
-        setShowModal(false);
+        handleToggle();
       }, 500);
     } else {
-      setShowModal(false);
+      handleToggle();
     }
   };
 
@@ -77,7 +81,10 @@ const WalletInput: React.FC = () => {
               onChange={(e) => setWalletAddress(e.target.value)}
               value={walletAddress}
             />
-            <div onClick={() => setShowModal(true)}>
+            <div
+              ref={toggleRef as React.RefObject<HTMLDivElement>}
+              onClick={handleToggle}
+            >
               <AiOutlineScan />
             </div>
           </InputWrapper>
@@ -99,10 +106,16 @@ const WalletInput: React.FC = () => {
           </Button>
         </InnerContainer>
       </Card>
-      {showModal && (
-        <Modal handleOffModal={handleOffModal} transition={transition}>
+      {toggle && (
+        <Modal
+          handleOffModal={handleOffModal}
+          transition={transition}
+          toggledElementRef={
+            toggledElementRef as React.RefObject<HTMLDivElement>
+          }
+        >
           <QrReader
-            setShowModal={setShowModal}
+            handleOffModal={handleOffModal}
             setWalletAddress={setWalletAddress}
           />
         </Modal>

@@ -5,7 +5,7 @@ import { device } from "../../styles/utils.styled";
 import QrScanner from "react-qr-scanner";
 
 interface Props {
-  setShowModal: (value: boolean) => void;
+  handleOffModal: () => void;
   setWalletAddress: (value: string) => void;
 }
 
@@ -19,12 +19,12 @@ interface ScanResult {
   timestamp: number;
 }
 
-const QrReader: React.FC<Props> = ({ setShowModal, setWalletAddress }) => {
+const QrReader: React.FC<Props> = ({ handleOffModal, setWalletAddress }) => {
   const handleScan = (data: ScanResult | null) => {
     if (data) {
       console.log(data);
       setWalletAddress(data.text);
-      setShowModal(false);
+      handleOffModal();
     }
   };
 
@@ -36,7 +36,7 @@ const QrReader: React.FC<Props> = ({ setShowModal, setWalletAddress }) => {
     <>
       <Heading>
         <h2>Scan QR Code</h2>
-        <div style={{ cursor: "pointer" }} onClick={() => setShowModal(false)}>
+        <div style={{ cursor: "pointer" }} onClick={handleOffModal}>
           <GrClose />
         </div>
       </Heading>

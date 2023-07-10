@@ -6,19 +6,21 @@ import { IoIosArrowDown } from "react-icons/io";
 import Logo from "../components/Logo";
 import { Button } from "../styles/element.styled";
 import { device } from "../styles/utils.styled";
+import useToggle from "../hooks/useToggle";
 
 interface Nav {
   $open: boolean;
 }
 
 const Header: React.FC = () => {
-  const [openNav, setOpenNav] = useState(false);
-  const navRef = useRef<HTMLDivElement>(null);
+  const { toggle, toggleRef, toggledElementRef, handleToggle } = useToggle({
+    eventType: "click",
+  });
 
   useEffect(() => {
     const switchNavOffOnBigScreen = () => {
       if (window.innerWidth >= 960) {
-        setOpenNav(false);
+        handleToggle();
       }
     };
 
@@ -33,23 +35,23 @@ const Header: React.FC = () => {
   return (
     <HeaderContainer>
       <Logo />
-      <Nav ref={navRef} $open={openNav}>
+      <Nav $open={toggle} ref={toggledElementRef}>
         <ul>
           <li>
             <p>Network</p>
-            {openNav && <IoIosArrowDown />}
+            {toggle && <IoIosArrowDown />}
           </li>
           <li>
             <p>Developers</p>
-            {openNav && <IoIosArrowDown />}
+            {toggle && <IoIosArrowDown />}
           </li>
           <li>
             <p>Solutions</p>
-            {openNav && <IoIosArrowDown />}
+            {toggle && <IoIosArrowDown />}
           </li>
           <li>
             <p>Tools</p>
-            {openNav && <IoIosArrowDown />}
+            {toggle && <IoIosArrowDown />}
           </li>
         </ul>
       </Nav>
@@ -60,7 +62,10 @@ const Header: React.FC = () => {
             Build on Fuse
           </Button>
         </ButtonContainer>
-        <NavButton onClick={() => setOpenNav((prev) => !prev)}>
+        <NavButton
+          ref={toggleRef as React.RefObject<HTMLDivElement>}
+          onClick={handleToggle}
+        >
           <div></div>
           <div></div>
           <div></div>
@@ -104,9 +109,11 @@ const Nav = styled.nav<Nav>`
             height: 220px;
             top: 9rem;
             overflow: hidden;
-            width: calc(100% + 45px);
+            width: calc(100% + 45.4px);
             margin-left: -23px;
             background: var(--accent-color);
+            transition: height 0.5s ease-in;
+            box-shadow: var(--box-shadow);
             transition: height 0.5s ease-in;
           `
         : css`
@@ -114,7 +121,7 @@ const Nav = styled.nav<Nav>`
             height: 0;
             top: 9rem;
             overflow: hidden;
-            width: calc(100% + 45px);
+            width: calc(100% + 45.4px);
             margin-left: -23px;
             background: var(--accent-color);
             transition: height 0.5s ease-in;
