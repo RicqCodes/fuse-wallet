@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { css, styled } from "styled-components";
 import { FaTwitter } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
@@ -13,6 +13,7 @@ interface Nav {
 
 const Header: React.FC = () => {
   const [openNav, setOpenNav] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const switchNavOffOnBigScreen = () => {
@@ -21,31 +22,18 @@ const Header: React.FC = () => {
       }
     };
 
-    const switchNavOffOnBodyClick = (event: MouseEvent) => {
-      const targetElement = event.target as HTMLElement;
-
-      if (!targetElement.closest(".header") && openNav) {
-        setTimeout(() => {
-          setOpenNav(false);
-        }, 0);
-      }
-    };
-
-    // Add event listener for window resize
+    // Add event listeners
     window.addEventListener("resize", switchNavOffOnBigScreen);
-    document.body.addEventListener("click", switchNavOffOnBodyClick);
 
-    // Cleanup the event listener on component unmount
+    // Cleanup the event listeners on component unmount
     return () => {
       window.removeEventListener("resize", switchNavOffOnBigScreen);
-      document.body.removeEventListener("click", switchNavOffOnBodyClick);
     };
   }, []);
-
   return (
-    <HeaderContainer className="header">
+    <HeaderContainer>
       <Logo />
-      <Nav $open={openNav}>
+      <Nav ref={navRef} $open={openNav}>
         <ul>
           <li>
             <p>Network</p>
