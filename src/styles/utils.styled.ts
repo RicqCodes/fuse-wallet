@@ -1,6 +1,7 @@
 // Retrieves the breakpoints from theme object if any and uses them to form media queries
 
 interface Breakpoints {
+  xxs: number;
   xs: number;
   sm: number;
   md: number;
@@ -10,6 +11,7 @@ interface Breakpoints {
 }
 
 const breakpoints: Breakpoints = {
+  xxs: 377,
   xs: 480,
   sm: 720,
   md: 960,

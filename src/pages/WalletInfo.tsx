@@ -29,6 +29,7 @@ import {
 
 import WalletDisplay from "./_molecules/WalletDisplay";
 import { defaultToken } from "../helper/defaultToken";
+import { device } from "../styles/utils.styled";
 
 const WalletInfo: React.FC = () => {
   const { address } = useParams<{ address: string }>();
@@ -317,15 +318,24 @@ const CoinContainer = styled.div`
 const Coin = styled.div`
   width: 100%;
   padding: 1.1rem 2rem;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* justify-content: space-between; */
   align-items: center;
+  gap: 2rem;
+
+  ${() => device.down("xxs")} {
+    grid-template-columns: 1fr;
+    /* flex-direction: column; */
+  }
 `;
 
 const Name = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+  width: 100%;
 
   p {
     font-size: 1.8rem;
@@ -351,6 +361,10 @@ const Name = styled.div`
     height: 4.2rem;
     width: 4.2rem;
   }
+
+  ${() => device.down("xxs")} {
+    width: 100%;
+  }
 `;
 
 const Text = styled.div`
@@ -361,7 +375,7 @@ const Text = styled.div`
 const Value = styled.div`
   display: flex;
   flex-direction: column;
-  justify-self: flex-start;
+  justify-self: flex-end;
 
   p {
     font-size: 2rem;
@@ -369,6 +383,12 @@ const Value = styled.div`
   }
 
   span {
+  }
+
+  ${() => device.down("xxs")} {
+    display: flex;
+    width: 100%;
+    text-align: end;
   }
 `;
 
