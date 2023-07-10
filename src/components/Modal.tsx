@@ -1,23 +1,38 @@
-import React, { ReactElement } from "react";
-import { styled } from "styled-components";
+import React, { ReactElement, useEffect, useRef } from "react";
+import { css, styled } from "styled-components";
 
 import { popup, slideUpDown } from "../styles/animation.styled";
 import { device } from "../styles/utils.styled";
 
 interface Props {
-  setShowModal: (value: boolean) => void;
+  transition: boolean;
+  handleOffModal: () => void;
   children: ReactElement;
 }
 
-const Modal: React.FC<Props> = ({ setShowModal, children }) => {
+interface Content {
+  $transition: boolean;
+}
+
+const Modal: React.FC<Props> = ({ transition, handleOffModal, children }) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const stopPropagation = (e: React.MouseEvent<HTMLDivElement>): void => {
     e.stopPropagation();
   };
 
   return (
-    <ModalOuterContainer onClick={() => setShowModal(false)}>
+    <ModalOuterContainer onClick={handleOffModal}>
       <InnerContent>
-        <Content onClick={stopPropagation}>{children}</Content>
+        <Content
+          id="content"
+          className="transition"
+          $transition={transition}
+          ref={contentRef}
+          onClick={stopPropagation}
+        >
+          {children}
+        </Content>
       </InnerContent>
     </ModalOuterContainer>
   );
@@ -52,7 +67,7 @@ const InnerContent = styled.div`
   }
 `;
 
-const Content = styled.div`
+const Content = styled.div<Content>`
   display: flex;
   max-width: 82.6rem;
   width: 100%;
@@ -65,9 +80,19 @@ const Content = styled.div`
     border-radius: 0%;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-
     animation: ${slideUpDown} 0.5s linear;
-
     padding-bottom: 8rem;
+  }
+
+  &.transition {
+    ${({ $transition }) =>
+      $transition === true
+        ? css`
+            &.transition {
+              transform: translateY(560px);
+              transition: transform 0.5s ease-in;
+            }
+          `
+        : ""}
   }
 `;

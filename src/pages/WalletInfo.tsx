@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
-import Card from "../components/Card";
-import { Button } from "../styles/element.styled";
+import { toast } from "react-hot-toast";
 
 import { HiOutlineArrowDown } from "react-icons/hi";
 import { RiArrowDownSLine } from "react-icons/ri";
 
-import Modal from "../components/Modal";
 import {
   useLazyGetAllTokenByAddressQuery,
   useGetNativeTokenBalanceQuery,
   useLazyGetPriceForAllTokenQuery,
 } from "../services/fuseApi";
+import { addAddress } from "../services/slice";
+
+import Card from "../components/Card";
+import Modal from "../components/Modal";
+import { Button } from "../styles/element.styled";
 import { useAppSelector } from "../services/hooks";
+
 import {
   calculateTokenPriceInUSD,
   calculateTotalBalance,
@@ -20,10 +26,7 @@ import {
   isWalletAddress,
   parseBalance,
 } from "../helper/utils";
-import { Link, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addAddress } from "../services/slice";
-import { toast } from "react-hot-toast";
+
 import WalletDisplay from "./_molecules/WalletDisplay";
 import { defaultToken } from "../helper/defaultToken";
 
@@ -42,10 +45,11 @@ const WalletInfo: React.FC = () => {
   const [displayedTokens, setDisplayedTokens] = useState(10); // Number of tokens to display initially
   const walletAddress = useAppSelector((app) => app.app.address);
   const [getAllTokenByAddress, { data: tokenList }] =
-    useLazyGetAllTokenByAddressQuery({ pollingInterval: 10000 });
+    useLazyGetAllTokenByAddressQuery({ pollingInterval: 10000 }); // Fetch user token and there balance every 10 seconds
   const [getPriceForAllTokenQuery, { data: tokenPrice }] =
-    useLazyGetPriceForAllTokenQuery({ pollingInterval: 55000 });
+    useLazyGetPriceForAllTokenQuery({ pollingInterval: 55000 }); // Get token price for available user token holdings if available
   const { data: nativeBalance } = useGetNativeTokenBalanceQuery(address || "");
+  const [transition, setTransition] = useState(false);
 
   useEffect(() => {
     const addToStateOnRefresh = async () => {
@@ -68,6 +72,18 @@ const WalletInfo: React.FC = () => {
     // Calculate the number of tokens to display after clicking "See More"
     const newDisplayedTokens = displayedTokens + 10;
     setDisplayedTokens(newDisplayedTokens);
+  };
+
+  const handleOffModal = () => {
+    if (window.innerWidth <= 720) {
+      setTransition(true);
+      setTimeout(() => {
+        setTransition(false);
+        setShowModal(false);
+      }, 500);
+    } else {
+      setShowModal(false);
+    }
   };
 
   return (
@@ -179,8 +195,8 @@ const WalletInfo: React.FC = () => {
         </MainContainer>
       </Card>
       {showModal && (
-        <Modal setShowModal={setShowModal}>
-          <WalletDisplay setShowModal={setShowModal} />
+        <Modal handleOffModal={handleOffModal} transition={transition}>
+          <WalletDisplay handleOffModal={handleOffModal} />
         </Modal>
       )}
     </WalletContainer>

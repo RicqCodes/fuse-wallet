@@ -13,10 +13,10 @@ import { device } from "../../styles/utils.styled";
 import { shortAddress } from "../../helper/utils";
 
 interface Props {
-  setShowModal: (value: boolean) => void;
+  handleOffModal: () => void;
 }
 
-const WalletDisplay: React.FC<Props> = ({ setShowModal }) => {
+const WalletDisplay: React.FC<Props> = ({ handleOffModal }) => {
   const walletAddress = useAppSelector(({ app }) => app.address);
   const [wallet, setWallet] = useState(walletAddress);
 
@@ -55,10 +55,7 @@ const WalletDisplay: React.FC<Props> = ({ setShowModal }) => {
     <>
       <Heading>
         <h2>Your Public Address</h2>
-        <GrClose
-          style={{ cursor: "pointer" }}
-          onClick={() => setShowModal(false)}
-        />
+        <GrClose style={{ cursor: "pointer" }} onClick={handleOffModal} />
       </Heading>
       <Body>
         <Contract>
@@ -84,7 +81,7 @@ const WalletDisplay: React.FC<Props> = ({ setShowModal }) => {
         <ButtonContainer>
           <Button
             type="button"
-            onClick={() => setShowModal(false)}
+            onClick={() => handleOffModal()}
             $fontsize="1.6"
             $fullWidth
           >

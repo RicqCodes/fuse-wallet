@@ -41,11 +41,6 @@ html {
   --tertiary-color: #bfbfbf;
   --increase-color: #1fe000;
   --warning: #9a6700;
-  --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
 }
 
 /* @media (prefers-color-scheme: dark) {

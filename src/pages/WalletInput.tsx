@@ -17,6 +17,7 @@ import QrReader from "./_molecules/QrReader";
 const WalletInput: React.FC = () => {
   const dispatch = useDispatch();
   const [walletAddress, setWalletAddress] = useState("");
+  const [transition, setTransition] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
@@ -49,6 +50,18 @@ const WalletInput: React.FC = () => {
     } catch (err) {
       console.error("rejected", err);
       toast.error("An error occured!");
+    }
+  };
+
+  const handleOffModal = () => {
+    if (window.innerWidth <= 720) {
+      setTransition(true);
+      setTimeout(() => {
+        setTransition(false);
+        setShowModal(false);
+      }, 500);
+    } else {
+      setShowModal(false);
     }
   };
 
@@ -87,7 +100,7 @@ const WalletInput: React.FC = () => {
         </InnerContainer>
       </Card>
       {showModal && (
-        <Modal setShowModal={setShowModal}>
+        <Modal handleOffModal={handleOffModal} transition={transition}>
           <QrReader
             setShowModal={setShowModal}
             setWalletAddress={setWalletAddress}
