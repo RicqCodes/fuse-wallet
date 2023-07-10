@@ -44,7 +44,9 @@ const QrReader: React.FC<Props> = ({ handleOffModal, setWalletAddress }) => {
         <ScannerContainer>
           <QrScanner
             delay={300}
-            facingmode={"rear"}
+            constraints={{
+              facingMode: "environment",
+            }}
             legacymode={true}
             onError={handleError}
             onScan={handleScan}
