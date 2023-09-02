@@ -20,7 +20,7 @@ const Header: React.FC = () => {
   useEffect(() => {
     const switchNavOffOnBigScreen = () => {
       if (window.innerWidth >= 960) {
-        handleToggle();
+        toggle && handleToggle();
       }
     };
 

@@ -88,7 +88,7 @@ src/                  # The main source code directory.
 - react-hot-toast: React library for customizable toast notifications.
 - react-icons: Collection of popular icons as React components.
 - react-qr-code: Library for generating QR codes in React applications.
-- react-qr-scanner: React component for scanning QR codes using the device's camera.
+- react-zxing: React component for scanning QR codes using the device's camera.
 - react-redux: React bindings for Redux state management.
 - react-router-dom: Routing library for React applications.
 - styled-components: CSS-in-JS library for styling React components.
